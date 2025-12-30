@@ -521,7 +521,7 @@ async function handleSubmit(event) {
     // Validate location
     if (!latitude || !longitude) {
         event.preventDefault();
-        alert('Please select your location on the map');
+        alert('Please set your location by clicking on the map or using the "Use My Current Location" button');
         isValid = false;
     }
     
@@ -530,6 +530,24 @@ async function handleSubmit(event) {
 
 // Initialize form validation
 document.addEventListener('DOMContentLoaded', function() {
+    // Password visibility toggle
+    const eyeIcon = document.getElementById('eye');
+    const passwordField = document.getElementById('password');
+    
+    if (eyeIcon && passwordField) {
+        eyeIcon.addEventListener('click', function() {
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            } else {
+                passwordField.type = 'password';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            }
+        });
+    }
+
     const submitButton = document.querySelector('.account_submit');
     
     if (submitButton) {
@@ -555,9 +573,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Real-time validation for password
-    const passwordInput = document.getElementById('password');
-    if (passwordInput) {
-        passwordInput.addEventListener('blur', function() {
+    if (passwordField) {
+        passwordField.addEventListener('blur', function() {
             const password = this.value;
             if (password) {
                 const errors = validatePassword(password);
