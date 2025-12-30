@@ -43,15 +43,14 @@ class User(AbstractUser):
     
     def calculate_age(self):
         """Calculate user's age"""
+        if not self.date_of_birth:
+            return None
         from datetime import date
         today = date.today()
         return today.year - self.date_of_birth.year - (
             (today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day)
         )
     
-    def is_old_enough(self):
-        """Check if user is 18 or older """
-        return self.calculate_age() >= 18
     
     def update_rating(self, new_rating):
         """Update user rating after a trade"""

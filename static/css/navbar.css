@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+*{
+    margin:0;
+    box-sizing: border-box;
+    padding: 0;
+}
+.nav-bar{
+    width: 100%;
+    padding: 40px;
+    background-color: #fff;
+    max-height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+}
+.logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+.logo svg{
+    width: 40px;
+    fill: #54A054;
+    border-radius: 50%;
+    padding: 5px;
+    background-color: #c3e9d0;
+}
+.logo_text{
+    color:#000;
+    font-family: "Rubik", sans-serif;
+    font-weight:700;
+    font-size: 24px;
+}
+
+.nav-bar_links{
+    display: flex;
+    gap:50px;
+    justify-content: center;
+    align-items: center;
+}
+.nav-bar_links--link{
+    text-decoration: none;
+    font-family: "Rubik";
+    color:#000;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    transition: all 0.1s;
+}
+.nav-bar_links--link:hover{
+    color: #54A054;
+    border: 2px solid #54A054;
+}
+.nav-bar_links--link:active{
+    background-color:  #c3e9d0;
+    transform: translateY(1px);
+}
+.nav-bar_add{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 12px;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-family: "Rubik";
+    background-color: #fff;
+    color:#54A054;
+    border: 2px solid #54A054;
+    transition: all 0.2s;
+}
+.nav-bar_add svg{
+    width:20px;
+    fill: #54A054;
+}
+.nav-bar_add:hover{
+    background-color: #fff;
+    background-color: #c3e9d0;
+}
+.nav-bar_add:active{
+    transform: translateY(1px);
+}
+.pfp{
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    width: 40px;
+    border: 2px solid #54A054;
+    transition: all 0.2s;
+}
+.pfp:hover{
+    border-color: #c3e9d0;
+}
+.pfp:active{
+    transform: translateY(1px);
+}
