@@ -7,6 +7,9 @@
     <title>Trade Cycle - Sign Up</title>
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- MapLibre GL JS -->
+    <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
+    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 </head>
 <body>
     <div class="big-box">
@@ -23,7 +26,7 @@
                 {% if messages %}
                     {% for message in messages %}
                         <div class="message-box {% if message.tags %}{{ message.tags }}{% endif %}" style="color: {% if 'error' in message.tags %}#d32f2f{% else %}#2e7d32{% endif %}; font-size: 13px; margin-bottom: 15px; padding: 10px; background: {% if 'error' in message.tags %}#ffebee{% else %}#e8f5e9{% endif %}; border-radius: 8px; border-left: 4px solid {% if 'error' in message.tags %}#d32f2f{% else %}#2e7d32{% endif %};">
-            {{ message }}
+                            {{ message }}
                         </div>
                     {% endfor %}
                 {% endif %}
@@ -81,7 +84,7 @@
 
                 <div class="input-div">
                     <label>Coordinates (Click on map to set)</label>
-                    <div style="display: flex; gap: 10px;">
+                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
                         <div class="field" style="flex: 1;">
                             <input type="number" name="latitude" id="latitude" placeholder="Latitude" step="any" required>
                         </div>
@@ -89,6 +92,7 @@
                             <input type="number" name="longitude" id="longitude" placeholder="Longitude" step="any" required>
                         </div>
                     </div>
+                    <div id="map" style="width: 100%; height: 300px; border-radius: 8px; border: 2px solid #54a054; border-radius:12px;"></div>
                 </div>
 
                 <div class="input-div">
@@ -127,7 +131,7 @@
             <p class="bottom-text">Already have an account? <a href="{% url 'users:login' %}">Log in</a></p>
         </div>
 
-        <div class="right-side">
+        <!--<div class="right-side">
             <div class="watch-area">
                 <div class="floating-card">
                     <div class="card-top">
@@ -149,23 +153,60 @@
 
             <div class="info-text">
                 <h2>Trade Value, Not Money.</h2>
-                <p>Join the world's largest community for item-to-item trading. Discover hidden gems and upgrade your life without spending a dime.</p>
+                <p>A smart trading platform that connects users to exchange items directly, helping them discover value, reduce waste, and upgrade what they own—without spending money</p>
                 
-                <div class="numbers">
-                    <div class="stat">
-                        <strong>50k+</strong>
-                        <span>Active Traders</span>
-                    </div>
-                    <div class="line"></div>
-                    <div class="stat">
-                        <strong>1M+</strong>
-                        <span>Items Listed</span>
-                    </div>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
+
+    <!-- Map initialization script -->
+    <script>
+        const map = new maplibregl.Map({
+            container: 'map',
+            style: 'https://tiles.openfreemap.org/styles/liberty',
+            center: [0, 0], 
+            zoom: 2,
+        });
+
+        let marker = null;
+
+        function setMarker(lat, lng) {
+            if (marker) marker.remove();
+
+            marker = new maplibregl.Marker({ color: '#54A054' })
+                .setLngLat([lng, lat])
+                .addTo(map);
+
+            map.setCenter([lng, lat]);
+            map.setZoom(13);
+
+            document.getElementById('latitude').value = lat.toFixed(6);
+            document.getElementById('longitude').value = lng.toFixed(6);
+        }
+
+        // Automatically get user's location
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+                    setMarker(lat, lng);
+                },
+                (error) => {
+                    console.log("Location permission denied or unavailable");
+                }
+            );
+        }
+
+        // Allow user to change location by clicking
+        map.on('click', (e) => {
+            setMarker(e.lngLat.lat, e.lngLat.lng);
+        });
+    </script>
+
     <script src="{% static 'js/account.js' %}"></script>
-    <script src="{% static 'js/map.js' %}"></script>
+    <!-- Remove map.js if it conflicts with inline script -->
+
 </body>
 </html>
