@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradeCycle | Explore</title>
+    <link rel="stylesheet" href="browse.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="nav-container">
+        <div class="nav-left">
+           <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#54A054" stroke-width="2.5"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+                <span class="brand">Trade<span>Cycle</span></span>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="nav-item active">Browse</a>
+                <a href="#" class="nav-item">My Trades</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button class="utility-icon" id="dark-mode-toggle"><i class="fa-solid fa-moon"></i></button>
+            <button class="utility-icon"><i class="fa-solid fa-bell"></i></button>
+            <div class="profile-wrapper">
+                <div class="user-avatar" id="profile-toggle">JS</div>
+                <div class="dropdown-menu" id="profile-dropdown">
+                    <a href="#"><i class="fa-regular fa-user"></i> View Profile</a>
+                    <a href="#"><i class="fa-solid fa-gear"></i> Account Settings</a>
+                    <hr>
+                    <a href="#" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="content-wrapper">
+    <section class="hero-header">
+        <div class="title-text">
+            <h1>Explore Items</h1>
+            <p>Discover unique items available for trade in your area.</p>
+        </div>
+        <div class="search-actions">
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="search-input" placeholder="Search items...">
+            </div>
+            <div class="filter-wrapper">
+                <button class="filter-btn" id="filter-toggle">
+                    <i class="fa-solid fa-sliders"></i> Filters
+                </button>
+                <div class="dropdown-menu" id="filter-dropdown">
+                    <p class="drop-label">Sort By</p>
+                    <label><input type="radio" name="sort" checked> Newest</label>
+                    <label><input type="radio" name="sort"> Distance</label>
+                    <hr>
+                    <p class="drop-label">Availability</p>
+                    <label><input type="checkbox" checked> Available Now</label>
+                </div>
+            </div>
+            <button class="post-btn">+ Post Item</button>
+        </div>
+    </section>
+
+    <div class="category-bar">
+        <button class="cat-pill active">All Items</button>
+        <button class="cat-pill">Electronics</button>
+        <button class="cat-pill">Furniture</button>
+        <button class="cat-pill">Clothing</button>
+        <button class="cat-pill">Books & Media</button>
+        <button class="cat-pill">Sports & Outdoors</button>
+    </div>
+
+    <div id="product-grid" class="product-grid"></div>
+
+    <div id="product-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal" id="close-modal-btn">&times;</button>
+            <div class="modal-body-layout">
+                <div class="modal-image-side">
+                    <span class="condition-badge">Item Details</span>
+                    <img id="modal-img" src="" alt="Product">
+                </div>
+                <div class="modal-info-side">
+                    <div class="modal-header-meta">
+                        <span class="modal-tag" id="modal-cat">CAT</span>
+                        <span class="post-time"><i class="fa-regular fa-clock"></i> Just now</span>
+                    </div>
+                    <h2 id="modal-title">Name</h2>
+                    <div class="seller-line">
+                        <div class="seller-avatar" id="modal-seller-initial">?</div>
+                        <div class="seller-text">
+                            <strong id="modal-user">User</strong>
+                            <span>📍 <span id="modal-dist">0 mi</span> away</span>
+                        </div>
+                    </div>
+                    <div class="modal-description">
+                        <h4>Description</h4>
+                        <p id="modal-desc"></p>
+                    </div>
+                    <div class="contact-card">
+                        <label>Seller's Email</label>
+                        <div class="email-box">
+                            <i class="fa-regular fa-envelope"></i>
+                            <input type="text" id="modal-email" readonly>
+                        </div>
+                        <button class="send-email-btn">Send Email</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="upload-modal" class="modal-overlay">
+        <div class="modal-content upload-content">
+            <button class="close-modal" id="close-upload-btn">&times;</button>
+            <div class="modal-body-layout">
+                <div class="upload-photo-side">
+                    <div class="form-title"><span class="accent-bar"></span>Add Photos</div>
+                    <div class="drop-zone" id="drop-zone">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <p id="drop-text">Click to upload image</p>
+                        <input type="file" id="up-image-input" accept="image/*" style="display: none;">
+                    </div>
+                    <div id="image-preview-container" style="display: none; margin-top: 20px;">
+                        <img id="upload-preview" src="" style="width: 100%; border-radius: 8px; border: 1px solid #ddd;">
+                    </div>
+                </div>
+                <div class="upload-form-side">
+                    <div class="form-title"><span class="accent-bar"></span>Item Details</div>
+                    <div class="form-group">
+                        <label>Item Name <span class="required">*</span></label>
+                        <input type="text" id="up-name" placeholder="e.g. Vintage Camera">
+                    </div>
+                    <div class="form-group">
+                        <label>Category <span class="required">*</span></label>
+                        <select id="up-category">
+                            <option value="Electronics">Electronics</option>
+                            <option value="Furniture">Furniture</option>
+                            <option value="Clothing">Clothing</option>
+                            <option value="Books & Media">Books & Media</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Condition <span class="required">*</span></label>
+                        <div class="quality-toggle">
+                            <button class="q-btn" data-val="New">New</button>
+                            <button class="q-btn" data-val="Like New">Like New</button>
+                            <button class="q-btn" data-val="Used">Used</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Description <span class="required">*</span></label>
+                        <textarea id="up-desc" rows="4" placeholder="Describe your item..."></textarea>
+                    </div>
+                    <p id="upload-error" class="error-msg">Please fill all fields and upload a photo.</p>
+                    <div class="form-footer">
+                        <button class="cancel-link" id="cancel-upload">Cancel</button>
+                        <button class="submit-btn" id="submit-upload">List Item</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="browse.js"></script>
+</body>
+</html>
