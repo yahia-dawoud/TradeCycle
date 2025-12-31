@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User
+from .models import User, Item
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
@@ -17,3 +17,8 @@ class CustomUserAdmin(UserAdmin):
         }),
     )
 
+@admin.register(Item)
+class ItemAdmin(admin.ModelAdmin):
+    list_display = ['title', 'user', 'category', 'condition', 'created_at', 'is_available']
+    list_filter = ['category', 'condition', 'is_available']
+    search_fields = ['title', 'description']

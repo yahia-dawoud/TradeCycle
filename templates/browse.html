@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradeCycle | Explore</title>
+    <link rel="stylesheet" href=" C:\Users\FABRIKA\Documents\GitHub\TradeCycle\static\css\browse.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="nav-container">
+        <div class="nav-left">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#54A054" stroke-width="2.5">
+                    <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+                </svg>
+                <span class="brand">Trade<span>Cycle</span></span>
+            </div>
+            <div class="nav-links">
+                <a href="{% url 'users:home' %}" class="nav-item active">Browse</a>
+                <a href="#" class="nav-item">My Trades</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <button class="utility-icon" id="dark-mode-toggle"><i class="fa-solid fa-moon"></i></button>
+            <button class="utility-icon"><i class="fa-solid fa-bell"></i></button>
+            <div class="profile-wrapper">
+                <div class="user-avatar" id="profile-toggle">
+                    {{ request.user.username|slice:":2"|upper|default:"JS" }}
+                </div>
+                <div class="dropdown-menu" id="profile-dropdown">
+                    <a href="#"><i class="fa-regular fa-user"></i> View Profile</a>
+                    <a href="#"><i class="fa-solid fa-gear"></i> Account Settings</a>
+                    <hr>
+                    <a href="{% url 'users:logout' %}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="content-wrapper">
+    <section class="hero-header">
+        <div class="title-text">
+            <h1>Explore Items</h1>
+            <p>Discover unique items available for trade in your area.</p>
+        </div>
+        <div class="search-actions">
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="search-input" placeholder="Search items...">
+            </div>
+            <div class="filter-wrapper">
+                <button class="filter-btn" id="filter-toggle">
+                    <i class="fa-solid fa-sliders"></i> Filters
+                </button>
+            </div>
+            <button class="post-btn" id="open-upload">
+                <i class="fa-solid fa-plus"></i> Post Item
+            </button>
+        </div>
+    </section>
+
+    <section class="category-filters">
+        <button class="cat-pill active" data-cat="All Items">All Items</button>
+        <button class="cat-pill" data-cat="Electronics">Electronics</button>
+        <button class="cat-pill" data-cat="Furniture">Furniture</button>
+        <button class="cat-pill" data-cat="Clothing">Clothing</button>
+        <button class="cat-pill" data-cat="Books & Media">Books & Media</button>
+        <button class="cat-pill" data-cat="Sports & Outdoors">Sports & Outdoors</button>
+    </section>
+
+    <section class="product-grid-section">
+        <div id="product-grid" class="product-grid">
+            <!-- Items loaded dynamically by JS -->
+        </div>
+    </section>
+
+    <!-- Upload Modal -->
+    <div class="modal-overlay" id="upload-modal">
+        <div class="upload-modal">
+            <!-- Paste your full upload modal content from original browse.html here -->
+            <!-- Including drop zone, image preview, form fields, submit button -->
+        </div>
+    </div>
+</main>
+
+<script src="{% static 'js/browse.js' %}"></script>
+</body>
+</html>
